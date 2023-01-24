@@ -163,6 +163,7 @@ class _DecompressPageState extends State<DecompressPage> {
         state3 = Step3State(true, false);
       });
     } catch (e) {
+      debugPrint(e.toString());
       setState(() {
         state3 = Step3State(false, false);
       });

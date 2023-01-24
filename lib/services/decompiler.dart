@@ -64,16 +64,26 @@ class Decompiler {
   Future<void> decompile1(String path) async {
     await shell.run('''
 
-      java -jar ${apkTool!.path} d $path/cache.apk -f -o $path.apk.out
+      java -jar ${apkTool!.path} d $path/cache.apk -f -o $path/cache.apk.out
 
       ''');
   }
 
   Future<void> decompile2(String path) async {
-    await shell.run('''
-      sh $path/d2j-dex2jar.sh --force $path/cache.apk -o $path/cache-dex2jar.jar
-      
+    // verify if windows
+    if (Platform.isWindows) {
+      await shell.run('''
+
+      $path/d2j-dex2jar.bat --force $path/cache.apk -o $path/cache-dex2jar.jar
+
       ''');
+    } else {
+      await shell.run('''
+
+      sh $path/d2j-dex2jar.sh --force $path/cache.apk -o $path/cache-dex2jar.jar
+
+      ''');
+    }
   }
 
   void openJavaGUI() {

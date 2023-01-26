@@ -55,10 +55,20 @@ class _DecompressPageState extends State<DecompressPage> {
                   ),
                   const SizedBox(width: 16),
                   ElevatedButton(
-                      onPressed: () {
-                        decompiler.openJavaGUI();
-                      },
-                      child: const Text('Abrir visualizador de .jar'))
+                    onPressed: () {
+                      decompiler.openJavaGUI();
+                    },
+                    child: const Text(
+                      'Abrir visualizador de .jar',
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: () => _onClickCancelShell(),
+                    child: const Text(
+                      'Cancelar descompilação',
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 48),
@@ -128,6 +138,16 @@ class _DecompressPageState extends State<DecompressPage> {
         ),
       ),
     );
+  }
+
+  void _onClickCancelShell() {
+    decompiler.cancelShell();
+
+    setState(() {
+      state1 = InitialState();
+      state2 = InitialState();
+      state3 = InitialState();
+    });
   }
 
   _onClickPickFile() async {

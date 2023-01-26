@@ -63,9 +63,7 @@ class Decompiler {
 
   Future<void> decompile1(String path) async {
     await shell.run('''
-
       java -jar ${apkTool!.path} d $path/cache.apk -f -o $path/cache.apk.out
-
       ''');
   }
 
@@ -84,6 +82,10 @@ class Decompiler {
 
       ''');
     }
+  }
+
+  void cancelShell() async {
+    shell.kill();
   }
 
   void openJavaGUI() {
